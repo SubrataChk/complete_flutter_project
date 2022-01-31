@@ -62,8 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                 changeButton = true;
               });
               await Future.delayed(Duration(seconds: 2));
-              Navigator.push(
+              await Navigator.push(
                   context, MaterialPageRoute(builder: (context) => HomePage()));
+
+              setState(() {
+                changeButton = false;
+              });
             },
             child: AnimatedContainer(
               duration: Duration(seconds: 2),

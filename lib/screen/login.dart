@@ -1,3 +1,4 @@
+import 'package:complete_flutter_project/screen/homepage.dart';
 import 'package:complete_flutter_project/widget/customformfield.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool changeButton = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,10 +55,46 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 10,
           ),
-          ElevatedButton(
-              style: TextButton.styleFrom(),
-              onPressed: () {},
-              child: Text("Log In"))
+
+          InkWell(
+            onTap: () async {
+              setState(() {
+                changeButton = true;
+              });
+              await Future.delayed(Duration(seconds: 2));
+              await Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+
+              setState(() {
+                changeButton = false;
+              });
+            },
+            child: AnimatedContainer(
+              duration: Duration(seconds: 2),
+              width: changeButton ? 50 : 150,
+              height: 50,
+              alignment: Alignment.center,
+              child: changeButton
+                  ? Icon(
+                      Icons.done,
+                      color: Colors.black,
+                    )
+                  : Text(
+                      "Log In",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 22),
+                    ),
+              decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(changeButton ? 50 : 8)),
+            ),
+          )
+          // ElevatedButton(
+          //     style: TextButton.styleFrom(),
+          //     onPressed: () {},
+          //     child: Text("Log In"))
         ],
       ),
     )));
